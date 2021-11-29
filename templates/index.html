@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+   <title>Document</title>
+</head>
+<body>
+   <h1>Welcome to the Great Number Game</h1>
+   <p>I am thinking of a number between 1 and {{session['high_num']}}</p>
+   
+   <div id = "guess-container">
+      <form action='/process-guess' method='post'>
+         <div class="form-group">
+            <label id="guess-msg" for='guess'>Take a guess!</p>
+            <input type='number' class='form-control' name='guess'>
+         </div>
+         <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+      </form>
+   </div>
+   <h3>{{session['count']}} guesses</h3>
+
+   <p>guess: {{session['guess']}}</p>
+   {% if session['count'] > 0 %}
+      {% if session['guess'] > session['rand_num'] %}
+         <p> Too High</p>
+      {% elif session['guess'] < session['rand_num'] %}
+         <p> Too low</p>
+      {% else %}
+         <p>Correct!</p>
+         <a href='/reset'><button class="btn btn-primary btn-lg btn-block" >Play Again!</button></a>
+      {% endif %}
+   {% endif %}
+   
+      <p>random #: {{session['rand_num']}}</p>
+   
+   
+</body>
+</html>
